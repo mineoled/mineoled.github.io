@@ -16,26 +16,25 @@
   <meta name="author" content="mineoled">
   <meta name="keywords" content="mineoled">
   
-    <meta name="description" content="这是一个图片233  nextcloud x 集群？ 不不不，这边只介绍单机配置（ &gt;环境准备 &gt;1. docker &gt;&gt;建议通过软件包管理器(apt&#x2F;yum)安装,需要添加docker官方源&#x2F;镜像源 &gt;&gt;这样便于更新 &gt; 为了性能考虑，可使用mysql作为数据库服务器 一步一步按照命令走（新手建议，毕竟是经验233 ##以下为my">
+    <meta name="description" content="简介 docker组件常用的有这几个 1. docker desktop (桌面应用) 2. docker engine （核心引擎） 3. docker compose(部署工具) 以下介绍引擎的安装方法（引擎是必须的，一般来说只需要引擎即可） 官方脚本安装  需root权限&#x2F;使用sudo  12curl -fsSL https:&#x2F;&#x2F;get.docker.com -o get-d">
 <meta property="og:type" content="article">
-<meta property="og:title" content="nextcloud————nas系统一步到位？加上docker容器！数据库赋能高速响应（划掉">
-<meta property="og:url" content="https://tzhiy.cn/2022/10/01/dockerandnextcloud/index.html">
+<meta property="og:title" content="docker基础之————安装引擎">
+<meta property="og:url" content="https://tzhiy.cn/2022/10/02/installdocker/index.html">
 <meta property="og:site_name" content="mineoled窝">
-<meta property="og:description" content="这是一个图片233  nextcloud x 集群？ 不不不，这边只介绍单机配置（ &gt;环境准备 &gt;1. docker &gt;&gt;建议通过软件包管理器(apt&#x2F;yum)安装,需要添加docker官方源&#x2F;镜像源 &gt;&gt;这样便于更新 &gt; 为了性能考虑，可使用mysql作为数据库服务器 一步一步按照命令走（新手建议，毕竟是经验233 ##以下为my">
+<meta property="og:description" content="简介 docker组件常用的有这几个 1. docker desktop (桌面应用) 2. docker engine （核心引擎） 3. docker compose(部署工具) 以下介绍引擎的安装方法（引擎是必须的，一般来说只需要引擎即可） 官方脚本安装  需root权限&#x2F;使用sudo  12curl -fsSL https:&#x2F;&#x2F;get.docker.com -o get-d">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-01T07:39:08.425Z">
-<meta property="article:modified_time" content="2022-10-02T01:02:17.755Z">
+<meta property="article:published_time" content="2022-10-02T01:02:35.691Z">
+<meta property="article:modified_time" content="2022-10-02T01:31:37.820Z">
 <meta property="article:author" content="mineoled">
 <meta property="article:tag" content="mineoled">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="nextcloud">
 <meta property="article:tag" content="linux">
-<meta property="article:tag" content="nas">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>nextcloud————nas系统一步到位？加上docker容器！数据库赋能高速响应（划掉 - mineoled窝</title>
+  <title>docker基础之————安装引擎 - mineoled窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-01 15:39" pubdate>
-          2022年10月1日 下午
+        <time datetime="2022-10-02 09:02" pubdate>
+          2022年10月2日 上午
         </time>
       </span>
     
@@ -227,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          1.1k 字
         
       </span>
     
@@ -238,7 +237,7 @@
         
         
         
-          17 分钟
+          10 分钟
         
       </span>
     
@@ -281,111 +280,52 @@
             
               <div class="markdown-body">
                 
-                <figure>
-<img
-src="https://pic4.zhimg.com/v2-68b55eca7e54ac6b7e3dae441e193827_720w.jpg?source=172ae18b" srcset="/img/loading.gif" lazyload
-title="docker" alt="这是一个图片233" />
-<figcaption aria-hidden="true">这是一个图片233</figcaption>
-</figure>
-<h1 id="nextcloud-x-集群">nextcloud x 集群？</h1>
-<p>不不不，这边只介绍单机配置（ &gt;环境准备 &gt;1. docker
-&gt;&gt;建议通过软件包管理器(apt/yum)安装,需要添加docker官方源/镜像源
-&gt;&gt;这样便于更新 &gt;</p>
-<p>为了性能考虑，可使用mysql作为数据库服务器</p>
-<h1
-id="一步一步按照命令走新手建议毕竟是经验233">一步一步按照命令走（新手建议，毕竟是经验233</h1>
-<p>##以下为mysql安装过程 <a
-target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql/">官方文档</a></p>
-<p>1.环境变量（提供参数</p>
+                <h1 id="简介">简介</h1>
+<p>docker组件常用的有这几个 1. docker desktop (桌面应用) 2. docker
+engine （核心引擎） 3. docker compose(部署工具)</p>
+<p>以下介绍引擎的安装方法（引擎是必须的，一般来说只需要引擎即可）</p>
+<h1 id="官方脚本安装">官方脚本安装</h1>
+<blockquote>
+<p>需root权限/使用sudo</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl -fsSL https://get.docker.com -o get-docker.sh<br>DRY_RUN=1 sh ./get-docker.sh<br></code></pre></td></tr></table></figure>
+<h1 id="镜像脚本安装">镜像脚本安装</h1>
+<blockquote>
+<p>需root/sudo</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet| sh -<br></code></pre></td></tr></table></figure>
+<h1 id="debian系系统命令安装"><官方源>debian系系统命令安装</h1>
+<ol type="1">
+<li>首先卸载旧版（系统自带源内安装为旧版，若已配置docker官方源/镜像源则跳过此步）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get remove docker docker-engine docker.io containerd runc<br></code></pre></td></tr></table></figure>
+<ol start="2" type="1">
+<li>更新软件包并安装ssl组件以便apt可使用https协议的软件源（若已安装可跳过）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update<br>sudo apt-get install \<br>   ca-certificates \<br>   curl \<br>   gnupg \<br>   lsb-release<br></code></pre></td></tr></table></figure>
+<p>3.添加docker官方源gpg密钥</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">mkdir</span> -p /etc/apt/keyrings<br> curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg<br></code></pre></td></tr></table></figure>
+<p>4.添加docker官方源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> \<br>  <span class="hljs-string">&quot;deb [arch=<span class="hljs-subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \</span><br><span class="hljs-string">  <span class="hljs-subst">$(lsb_release -cs)</span> stable&quot;</span> | sudo <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null<br></code></pre></td></tr></table></figure>
+<p>5.安装docker engine</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update<br> sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin<br></code></pre></td></tr></table></figure>
+<h2 id="错误及解决方案">错误及解决方案</h2>
 <table>
 
 <thead>
 <tr class="header">
-<th>名称</th>
-<th>用途</th>
-<th>默认参数（本文档）</th>
-<th>参数建议</th>
+<th>错误原因/名称</th>
+<th>解决方案</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>docker_mysql_version</td>
-<td>指定mysql版本</td>
-<td>5.9</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>docker_mysql_port</td>
-<td>指定开放端口</td>
-<td>3306</td>
-<td>若暴露公网建议修改</td>
-</tr>
-<tr class="odd">
-<td>docker_mysql_container_name</td>
-<td>容器名</td>
-<td>mysql</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>docker_mysql_container_root_password</td>
-<td>数据库root密码</td>
-<td>passwdforrooot</td>
-<td>建议修改</td>
-</tr>
-<tr class="odd">
-<td>docker_mysql_container_user_name</td>
-<td>数据库用户名称</td>
-<td>user</td>
-<td>建议修改</td>
-</tr>
-<tr class="even">
-<td>docker_mysql_container_user_password</td>
-<td>数据库用户密码</td>
-<td>passwdforuser</td>
-<td>建议修改</td>
-</tr>
-<tr class="odd">
-<td>docker_mysql_container_database</td>
-<td>新建数据库名称</td>
-<td>nextcloud</td>
-<td></td>
+<td>apt-get update时遇到gpg错误</td>
+<td>可能掩码设置不对，尝试sudo chmod a+r
+/etc/apt/keyrings/docker.gpg</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>mysql8.0及更新需配合php相关插件升级/修改数据库密码方式为native，以下提供一个实例,进入容器并登录mysql，命令行键入类似以下命令
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER USER ‘nextcloud‘@‘%‘ IDENTIFIED WITH mysql_native_password BY ‘new_password‘;<br></code></pre></td></tr></table></figure></p>
-</blockquote>
-<p>命令形式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br><span class="hljs-built_in">export</span> docker_mysql_version = 5.7<br><span class="hljs-built_in">export</span> docker_mysql_port = 3306<br><span class="hljs-built_in">export</span> docker_mysql_container_name = mysql<br><span class="hljs-built_in">export</span> docker_mysql_container_root_password = passwdforrooot <br><span class="hljs-built_in">export</span> docker_mysql_container_user_name = user<br><span class="hljs-built_in">export</span> docker_mysql_container_user_password = passwdforuser<br><span class="hljs-built_in">export</span> docker_mysql_container_database = nextcloud <br></code></pre></td></tr></table></figure>
-<p>.env形式(环境变量文件，便于部署/保密，与命令形式二选一) <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs env">docker_mysql_version = 5.7<br>docker_mysql_port = 3306<br>docker_mysql_container_name = mysql<br>docker_mysql_container_root_password = passwdforrooot <br>docker_mysql_container_user_name = user<br>docker_mysql_container_user_password = passwdforuser<br>export docker_mysql_container_database = nextcloud <br></code></pre></td></tr></table></figure>
-2.docker命令 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run \<br>--name <span class="hljs-variable">$docker_mysql_container_name</span> \ <br>-e MYSQL_ROOT_PASSWORD=<span class="hljs-variable">$docker_mysql_container_root_password</span> \<br>-e MYSQL_DATABASE=<span class="hljs-variable">$docker_mysql_container_database</span> \<br>-e MYSQL_USER=<span class="hljs-variable">$docker_mysql_container_user_name</span> \<br>-e MYSQL_PASSWORD=<span class="hljs-variable">$docker_mysql_container_user_password</span> \<br>-p <span class="hljs-variable">$docker_mysql_port</span>:3306 \<br>--restart=on-failure:5 \<br>mysql:<span class="hljs-variable">$docker_mysql_version</span><br></code></pre></td></tr></table></figure></p>
-<p>##以下为nextcloud容器安装</p>
-<p>1.环境变量</p>
-<table>
-<thead>
-<tr class="header">
-<th>名称</th>
-<th>用途</th>
-<th>默认参数（本文档）</th>
-<th>参数建议</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>docker_nextcloud_volume1</td>
-<td>数据挂载卷</td>
-<td>~/nextcloud</td>
-<td>按需</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> docker_nextcloud_volume1=~/nextcloud<br></code></pre></td></tr></table></figure>
-<p>2.docker命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -d \<br>-v <span class="hljs-variable">$docker_nextcloud_volume1</span>:/var/www/html \<br>--<span class="hljs-built_in">link</span> <span class="hljs-variable">$docker_mysql_container_name</span>:mysql<br>nextcloud<br><br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>若不使用mysql，请去除 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">--<span class="hljs-built_in">link</span> <span class="hljs-variable">$docker_mysql_container_name</span>:mysql<br></code></pre></td></tr></table></figure></p>
-</blockquote>
 
                 
               </div>
@@ -427,8 +367,6 @@ target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql/">官方文�
       
         <a href="/tags/linux/">#linux</a>
       
-        <a href="/tags/nas/">#nas</a>
-      
     </div>
   
 </div>
@@ -439,8 +377,8 @@ target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql/">官方文�
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>nextcloud————nas系统一步到位？加上docker容器！数据库赋能高速响应（划掉</div>
-      <div>https://tzhiy.cn/2022/10/01/dockerandnextcloud/</div>
+      <div>docker基础之————安装引擎</div>
+      <div>https://tzhiy.cn/2022/10/02/installdocker/</div>
     </div>
     <div class="license-meta">
       
@@ -452,7 +390,7 @@ target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql/">官方文�
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月1日</div>
+          <div>2022年10月2日</div>
         </div>
       
       
@@ -496,18 +434,12 @@ target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql/">官方文�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/02/installdocker/" title="docker基础之————安装引擎">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">docker基础之————安装引擎</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/30/hello-world/" title="markdown基本语法（这个博客向世界发出了一声啼哭~">
-                        <span class="hidden-mobile">markdown基本语法（这个博客向世界发出了一声啼哭~</span>
+                      <a href="/2022/10/01/dockerandnextcloud/" title="nextcloud————nas系统一步到位？加上docker容器！数据库赋能高速响应（划掉">
+                        <span class="hidden-mobile">nextcloud————nas系统一步到位？加上docker容器！数据库赋能高速响应（划掉</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
