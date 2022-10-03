@@ -16,25 +16,24 @@
   <meta name="author" content="mineoled">
   <meta name="keywords" content="mineoled">
   
-    <meta name="description" content="简介 docker组件常用的有这几个 1. docker desktop (桌面应用) 2. docker engine （核心引擎） 3. docker compose(部署工具) 以下介绍引擎的安装方法（引擎是必须的，一般来说只需要引擎即可） 官方脚本安装  需root权限&#x2F;使用sudo  12curl -fsSL https:&#x2F;&#x2F;get.docker.com -o get-d">
+    <meta name="description" content="为什么会有指针 为了知道变量被存储在的位置（内存地址，在具有mmu（或软mmu）的平台一般为虚拟的）； 指针怎么用  间接寻址运算符* 与 取地址运算符&amp;  为了知道一个变量的地址，我们可以这样做 123456int main()&amp;#123;int x&#x3D;0;int *p &#x3D; &amp;x;int *pp &#x3D; &amp;p;&amp;#125; 定义整形变量x并赋值0，随后定义int">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker基础之————安装引擎">
-<meta property="og:url" content="https://tzhiy.cn/2022/10/02/installdocker/index.html">
+<meta property="og:title" content="cpp指针相关整理">
+<meta property="og:url" content="https://tzhiy.cn/2022/10/03/cpppointer/index.html">
 <meta property="og:site_name" content="mineoled窝">
-<meta property="og:description" content="简介 docker组件常用的有这几个 1. docker desktop (桌面应用) 2. docker engine （核心引擎） 3. docker compose(部署工具) 以下介绍引擎的安装方法（引擎是必须的，一般来说只需要引擎即可） 官方脚本安装  需root权限&#x2F;使用sudo  12curl -fsSL https:&#x2F;&#x2F;get.docker.com -o get-d">
+<meta property="og:description" content="为什么会有指针 为了知道变量被存储在的位置（内存地址，在具有mmu（或软mmu）的平台一般为虚拟的）； 指针怎么用  间接寻址运算符* 与 取地址运算符&amp;  为了知道一个变量的地址，我们可以这样做 123456int main()&amp;#123;int x&#x3D;0;int *p &#x3D; &amp;x;int *pp &#x3D; &amp;p;&amp;#125; 定义整形变量x并赋值0，随后定义int">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-02T01:02:35.691Z">
-<meta property="article:modified_time" content="2022-10-02T01:31:37.820Z">
+<meta property="article:published_time" content="2022-10-03T09:29:54.424Z">
+<meta property="article:modified_time" content="2022-10-03T10:16:03.601Z">
 <meta property="article:author" content="mineoled">
 <meta property="article:tag" content="mineoled">
-<meta property="article:tag" content="docker">
-<meta property="article:tag" content="nextcloud">
-<meta property="article:tag" content="linux">
+<meta property="article:tag" content="cpp">
+<meta property="article:tag" content="pointer">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>docker基础之————安装引擎 - mineoled窝</title>
+  <title>cpp指针相关整理 - mineoled窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -203,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="nextcloud by docker with mysql"></span>
+            <span id="subtitle" data-typed-text="cpp指针相关整理"></span>
           
         </div>
 
@@ -214,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-02 09:02" pubdate>
-          2022年10月2日 上午
+        <time datetime="2022-10-03 17:29" pubdate>
+          2022年10月3日 下午
         </time>
       </span>
     
@@ -226,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          256 字
         
       </span>
     
@@ -237,7 +236,7 @@
         
         
         
-          10 分钟
+          3 分钟
         
       </span>
     
@@ -275,57 +274,25 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">nextcloud by docker with mysql</h1>
+            <h1 style="display: none">cpp指针相关整理</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="简介">简介</h1>
-<p>docker组件常用的有这几个 1. docker desktop (桌面应用) 2. docker
-engine （核心引擎） 3. docker compose(部署工具)</p>
-<p>以下介绍引擎的安装方法（引擎是必须的，一般来说只需要引擎即可）</p>
-<h1 id="官方脚本安装">官方脚本安装</h1>
-<blockquote>
-<p>需root权限/使用sudo</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl -fsSL https://get.docker.com -o get-docker.sh<br>DRY_RUN=1 sh ./get-docker.sh<br></code></pre></td></tr></table></figure>
-<h1 id="镜像脚本安装">镜像脚本安装</h1>
-<blockquote>
-<p>需root/sudo</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet| sh -<br></code></pre></td></tr></table></figure>
-<h1 id="debian系系统命令安装"><官方源>debian系系统命令安装</h1>
+                <h1 id="为什么会有指针">为什么会有指针</h1>
+<p>为了知道变量被存储在的位置（内存地址，在具有mmu（或软mmu）的平台一般为虚拟的）；</p>
+<h1 id="指针怎么用">指针怎么用</h1>
 <ol type="1">
-<li>首先卸载旧版（系统自带源内安装为旧版，若已配置docker官方源/镜像源则跳过此步）</li>
+<li>间接寻址运算符* 与 取地址运算符&amp;</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get remove docker docker-engine docker.io containerd runc<br></code></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>更新软件包并安装ssl组件以便apt可使用https协议的软件源（若已安装可跳过）</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update<br>sudo apt-get install \<br>   ca-certificates \<br>   curl \<br>   gnupg \<br>   lsb-release<br></code></pre></td></tr></table></figure>
-<p>3.添加docker官方源gpg密钥</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">mkdir</span> -p /etc/apt/keyrings<br> curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg<br></code></pre></td></tr></table></figure>
-<p>4.添加docker官方源</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> \<br>  <span class="hljs-string">&quot;deb [arch=<span class="hljs-subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \</span><br><span class="hljs-string">  <span class="hljs-subst">$(lsb_release -cs)</span> stable&quot;</span> | sudo <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null<br></code></pre></td></tr></table></figure>
-<p>5.安装docker engine</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update<br> sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin<br></code></pre></td></tr></table></figure>
-<h2 id="错误及解决方案">错误及解决方案</h2>
-<table>
-
-<thead>
-<tr class="header">
-<th>错误原因/名称</th>
-<th>解决方案</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>apt-get update时遇到gpg错误</td>
-<td>可能掩码设置不对，尝试sudo chmod a+r
-/etc/apt/keyrings/docker.gpg</td>
-</tr>
-</tbody>
-</table>
+<p>为了知道一个变量的地址，我们可以这样做</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><span class="hljs-type">int</span> x=<span class="hljs-number">0</span>;<br><span class="hljs-type">int</span> *p = &amp;x;<br><span class="hljs-type">int</span> *pp = &amp;p;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>定义整形变量x并赋值0，随后定义int类型指针p，将其指向变量x的地址
+再定义int指针pp,将其指向p的地址（而不是x的地址）</p>
+<blockquote>
+<p>什么类型变量的地址应该用同种类型的指针变量存储
+这里的p是指针,但*p是int</p>
+</blockquote>
 
                 
               </div>
@@ -344,7 +311,7 @@ engine （核心引擎） 3. docker compose(部署工具)</p>
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  <a href="/categories/cpp%E5%AD%A6%E4%B9%A0/" class="category-chain-item">cpp学习</a>
   
   
 
@@ -361,11 +328,9 @@ engine （核心引擎） 3. docker compose(部署工具)</p>
       
         <a href="/tags/mineoled/">#mineoled</a>
       
-        <a href="/tags/docker/">#docker</a>
+        <a href="/tags/cpp/">#cpp</a>
       
-        <a href="/tags/nextcloud/">#nextcloud</a>
-      
-        <a href="/tags/linux/">#linux</a>
+        <a href="/tags/pointer/">#pointer</a>
       
     </div>
   
@@ -377,8 +342,8 @@ engine （核心引擎） 3. docker compose(部署工具)</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>docker基础之————安装引擎</div>
-      <div>https://tzhiy.cn/2022/10/02/installdocker/</div>
+      <div>cpp指针相关整理</div>
+      <div>https://tzhiy.cn/2022/10/03/cpppointer/</div>
     </div>
     <div class="license-meta">
       
@@ -390,7 +355,7 @@ engine （核心引擎） 3. docker compose(部署工具)</p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月2日</div>
+          <div>2022年10月3日</div>
         </div>
       
       
@@ -434,18 +399,12 @@ engine （核心引擎） 3. docker compose(部署工具)</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/03/cpppointer/" title="cpp指针相关整理">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">cpp指针相关整理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/01/dockerandnextcloud/" title="nextcloud————nas系统一步到位？加上docker容器！数据库赋能高速响应（划掉">
-                        <span class="hidden-mobile">nextcloud————nas系统一步到位？加上docker容器！数据库赋能高速响应（划掉</span>
+                      <a href="/2022/10/02/installdocker/" title="docker基础之————安装引擎">
+                        <span class="hidden-mobile">docker基础之————安装引擎</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -499,6 +458,12 @@ engine （核心引擎） 3. docker compose(部署工具)</p>
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -692,6 +657,49 @@ engine （核心引擎） 3. docker compose(部署工具)</p>
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

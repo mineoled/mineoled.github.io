@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>cpp指针相关整理</title>
+    <link href="/2022/10/03/cpppointer/"/>
+    <url>/2022/10/03/cpppointer/</url>
+    
+    <content type="html"><![CDATA[<h1 id="为什么会有指针">为什么会有指针</h1><p>为了知道变量被存储在的位置（内存地址，在具有mmu（或软mmu）的平台一般为虚拟的）；</p><h1 id="指针怎么用">指针怎么用</h1><ol type="1"><li>间接寻址运算符* 与 取地址运算符&amp;</li></ol><p>为了知道一个变量的地址，我们可以这样做</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><span class="hljs-type">int</span> x=<span class="hljs-number">0</span>;<br><span class="hljs-type">int</span> *p = &amp;x;<br><span class="hljs-type">int</span> *pp = &amp;p;<br>&#125;<br><br></code></pre></td></tr></table></figure><p>定义整形变量x并赋值0，随后定义int类型指针p，将其指向变量x的地址再定义int指针pp,将其指向p的地址（而不是x的地址）</p><blockquote><p>什么类型变量的地址应该用同种类型的指针变量存储这里的p是指针,但*p是int</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>cpp学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>mineoled</tag>
+      
+      <tag>cpp</tag>
+      
+      <tag>pointer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>docker基础之————安装引擎</title>
     <link href="/2022/10/02/installdocker/"/>
     <url>/2022/10/02/installdocker/</url>
