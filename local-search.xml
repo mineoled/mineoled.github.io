@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>esp32-idf&amp;arduino编译优化</title>
+    <link href="/2022/10/07/esp32COMPILER_OPTIMIZATION/"/>
+    <url>/2022/10/07/esp32COMPILER_OPTIMIZATION/</url>
+    
+    <content type="html"><![CDATA[<p>！！！！ 本教程适用于使用idf开发的主流平台（只要能找到sdkconfig）比如arduino！！！ ！！！！</p><h1 id="编译-优化">编译-优化</h1><p>默认来说，编译优化是不开启的。</p><p>不过，为了得到</p><ol type="1"><li>更好（可能）的性能</li><li>优化过的大小</li></ol><p>我们往往会加入编译优化标志（compiler_optimization_flag）,来“告诉”编译器我需要哪方面的优化。</p><p>这一切，在常见的x86-64架构pc十分常见</p><p>但在xtense架构单片机esp32上，这种操作可能伴随着不小的风险，最为直观的则是编译不通过的error（以及一些小问题，不过富贵险中求，生产环境不推荐233毕竟官方默认没优化）</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>esp32开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>cpp</tag>
+      
+      <tag>esp32</tag>
+      
+      <tag>compiler_optimization</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>cpp指针相关整理</title>
     <link href="/2022/10/03/cpppointer/"/>
     <url>/2022/10/03/cpppointer/</url>

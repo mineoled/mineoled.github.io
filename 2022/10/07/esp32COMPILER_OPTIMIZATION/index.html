@@ -16,24 +16,24 @@
   <meta name="author" content="mineoled">
   <meta name="keywords" content="mineoled">
   
-    <meta name="description" content="为什么会有指针 为了知道变量被存储在的位置（内存地址，在具有mmu（或软mmu）的平台一般为虚拟的）； 指针怎么用  间接寻址运算符* 与 取地址运算符&amp;  为了知道一个变量的地址，我们可以这样做 123456int main()&amp;#123;int x&#x3D;0;int *p &#x3D; &amp;x;int *pp &#x3D; &amp;p;&amp;#125; 定义整形变量x并赋值0，随后定义int">
+    <meta name="description" content="！！！！ 本教程适用于使用idf开发的主流平台（只要能找到sdkconfig） 比如arduino！！！ ！！！！ 编译-优化 默认来说，编译优化是不开启的。 不过，为了得到  更好（可能）的性能 优化过的大小  我们往往会加入编译优化标志（compiler_optimization_flag）,来“告诉”编译器我需要哪方面的优化。 这一切，在常见的x86-64架构pc十分常见">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cpp指针相关整理">
-<meta property="og:url" content="https://tzhiy.cn/2022/10/03/cpppointer/index.html">
+<meta property="og:title" content="esp32-idf&amp;arduino编译优化">
+<meta property="og:url" content="https://tzhiy.cn/2022/10/07/esp32COMPILER_OPTIMIZATION/index.html">
 <meta property="og:site_name" content="mineoled窝">
-<meta property="og:description" content="为什么会有指针 为了知道变量被存储在的位置（内存地址，在具有mmu（或软mmu）的平台一般为虚拟的）； 指针怎么用  间接寻址运算符* 与 取地址运算符&amp;  为了知道一个变量的地址，我们可以这样做 123456int main()&amp;#123;int x&#x3D;0;int *p &#x3D; &amp;x;int *pp &#x3D; &amp;p;&amp;#125; 定义整形变量x并赋值0，随后定义int">
+<meta property="og:description" content="！！！！ 本教程适用于使用idf开发的主流平台（只要能找到sdkconfig） 比如arduino！！！ ！！！！ 编译-优化 默认来说，编译优化是不开启的。 不过，为了得到  更好（可能）的性能 优化过的大小  我们往往会加入编译优化标志（compiler_optimization_flag）,来“告诉”编译器我需要哪方面的优化。 这一切，在常见的x86-64架构pc十分常见">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-03T09:29:54.424Z">
-<meta property="article:modified_time" content="2022-10-03T10:16:03.601Z">
+<meta property="article:published_time" content="2022-10-07T11:14:29.057Z">
+<meta property="article:modified_time" content="2022-10-07T11:22:29.892Z">
 <meta property="article:author" content="mineoled">
-<meta property="article:tag" content="mineoled">
 <meta property="article:tag" content="cpp">
-<meta property="article:tag" content="pointer">
+<meta property="article:tag" content="esp32">
+<meta property="article:tag" content="compiler_optimization">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>cpp指针相关整理 - mineoled窝</title>
+  <title>esp32-idf&amp;arduino编译优化 - mineoled窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="cpp指针相关整理"></span>
+            <span id="subtitle" data-typed-text="esp32-idf&amp;arduino编译优化"></span>
           
         </div>
 
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-03 17:29" pubdate>
-          2022年10月3日 下午
+        <time datetime="2022-10-07 19:14" pubdate>
+          2022年10月7日 晚上
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          256 字
+          268 字
         
       </span>
     
@@ -274,25 +274,23 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">cpp指针相关整理</h1>
+            <h1 style="display: none">esp32-idf&amp;arduino编译优化</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="为什么会有指针">为什么会有指针</h1>
-<p>为了知道变量被存储在的位置（内存地址，在具有mmu（或软mmu）的平台一般为虚拟的）；</p>
-<h1 id="指针怎么用">指针怎么用</h1>
+                <p>！！！！ 本教程适用于使用idf开发的主流平台（只要能找到sdkconfig）
+比如arduino！！！ ！！！！</p>
+<h1 id="编译-优化">编译-优化</h1>
+<p>默认来说，编译优化是不开启的。</p>
+<p>不过，为了得到</p>
 <ol type="1">
-<li>间接寻址运算符* 与 取地址运算符&amp;</li>
+<li>更好（可能）的性能</li>
+<li>优化过的大小</li>
 </ol>
-<p>为了知道一个变量的地址，我们可以这样做</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><span class="hljs-type">int</span> x=<span class="hljs-number">0</span>;<br><span class="hljs-type">int</span> *p = &amp;x;<br><span class="hljs-type">int</span> *pp = &amp;p;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<p>定义整形变量x并赋值0，随后定义int类型指针p，将其指向变量x的地址
-再定义int指针pp,将其指向p的地址（而不是x的地址）</p>
-<blockquote>
-<p>什么类型变量的地址应该用同种类型的指针变量存储
-这里的p是指针,但*p是int</p>
-</blockquote>
+<p>我们往往会加入编译优化标志（compiler_optimization_flag）,来“告诉”编译器我需要哪方面的优化。</p>
+<p>这一切，在常见的x86-64架构pc十分常见</p>
+<p>但在xtense架构单片机esp32上，这种操作可能伴随着不小的风险，最为直观的则是编译不通过的error（以及一些小问题，不过富贵险中求，生产环境不推荐233毕竟官方默认没优化）</p>
 
                 
               </div>
@@ -311,7 +309,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/cpp%E5%AD%A6%E4%B9%A0/" class="category-chain-item">cpp学习</a>
+  <a href="/categories/esp32%E5%BC%80%E5%8F%91/" class="category-chain-item">esp32开发</a>
   
   
 
@@ -326,11 +324,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/mineoled/">#mineoled</a>
-      
         <a href="/tags/cpp/">#cpp</a>
       
-        <a href="/tags/pointer/">#pointer</a>
+        <a href="/tags/esp32/">#esp32</a>
+      
+        <a href="/tags/compiler-optimization/">#compiler_optimization</a>
       
     </div>
   
@@ -342,8 +340,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>cpp指针相关整理</div>
-      <div>https://tzhiy.cn/2022/10/03/cpppointer/</div>
+      <div>esp32-idf&amp;arduino编译优化</div>
+      <div>https://tzhiy.cn/2022/10/07/esp32COMPILER_OPTIMIZATION/</div>
     </div>
     <div class="license-meta">
       
@@ -355,7 +353,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月3日</div>
+          <div>2022年10月7日</div>
         </div>
       
       
@@ -399,18 +397,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/07/esp32COMPILER_OPTIMIZATION/" title="esp32-idf&amp;arduino编译优化">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">esp32-idf&amp;arduino编译优化</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/02/installdocker/" title="docker基础之————安装引擎">
-                        <span class="hidden-mobile">docker基础之————安装引擎</span>
+                      <a href="/2022/10/03/cpppointer/" title="cpp指针相关整理">
+                        <span class="hidden-mobile">cpp指针相关整理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -464,12 +456,6 @@
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -663,49 +649,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
